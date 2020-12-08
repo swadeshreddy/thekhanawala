@@ -1,0 +1,36 @@
+<ion-header no-border>
+    <ion-toolbar mode="md">
+        <ion-buttons slot="start">
+
+            <ion-back-button defaultHref="home" icon="../../../assets/icon-image/close_b.svg" text=""></ion-back-button>
+        </ion-buttons>
+        <ion-title>{{"store_detail.store" | translate}} </ion-title>
+    </ion-toolbar>
+    <div class="search_div">
+        <ion-searchbar placeholder="Search for Restaurant and dishes" clearIcon="string" [(ngModel)]="term"></ion-searchbar>
+    </div>
+
+</ion-header>
+
+<ion-content class="ion-padding-vertical">
+    <div class="store_div">
+        <div class="product_div" *ngFor="let item of Store |filter:term" (click)="storeDetail(item?.id)">
+
+            <div class="img_div">
+                <img [src]="item?.imagePath + item?.image">
+            </div>
+            <h3 class="name">{{item?.name}}</h3>
+
+            <p class="away_lbl" *ngIf="item?.away">
+                <ion-icon src="../../../assets/icon-image/gro_pin.svg"></ion-icon>
+                {{item?.away}} km
+            </p>
+        </div>
+
+
+    </div>
+
+    <div no-data *ngIf="Store?.length == 0">
+        <img src="../../../assets/image/no-data-icon-10.jpg" alt="no data">
+    </div>
+</ion-content>

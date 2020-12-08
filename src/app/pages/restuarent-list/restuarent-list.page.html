@@ -1,0 +1,27 @@
+<ion-header mode="ios" class="ion-no-border" no-border>
+  <ion-toolbar class="ion-no-border" noborder>
+    <!-- <ion-title>restuarent-list</ion-title> -->
+    <ion-buttons >
+      <ion-back-button defaultHref="home" icon="ios-arrow-back" text=""></ion-back-button>
+  </ion-buttons>
+  
+  <ion-buttons slot="end">
+     <ion-button><ion-icon src="../../../assets/icon/search.svg"></ion-icon></ion-button>
+  </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-row>
+  <ion-card *ngFor="let item of data?.shop" (click)="resturantDetail(item?.id)">
+    <img [src]="item?.imagePath + item?.image || defaultimage" />
+    <ion-card-header>
+      <ion-card-subtitle>{{item?.name}}</ion-card-subtitle>
+      <!-- <ion-card-title>Madison, WI</ion-card-title> -->
+    </ion-card-header>
+    <ion-card-content>
+      Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the Wisconsin Territory in 1836.
+    </ion-card-content>
+  </ion-card>
+</ion-row>
+</ion-content>

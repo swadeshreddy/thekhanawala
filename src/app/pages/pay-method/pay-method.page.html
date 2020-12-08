@@ -1,0 +1,114 @@
+<ion-header no-border>
+  <ion-toolbar mode="md">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home" icon="ios-arrow-back" text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-uppercase">{{"pay_method.payment_method" | translate}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content>
+  <div class="card_div ion-margin-horizontal">
+    <div class="cash" [ngStyle]="{'background-color':cash===1? 'var(--ion-color-green)': 'var(--ion-color-white)' }"
+      (click)="online=0;cash=1;payment_type='LOCAL'" *ngIf="data?.cod">
+      <div class="img_div">
+        <img [src]="cash==1 ? 'assets/image/cash.png' : 'assets/image/cash-payment.png'" />
+        <h3 [ngClass]="cash==1 ? 'tittle' : 'cash_heading' ">{{"pay_method.cash" | translate}}</h3>
+      </div>
+    </div>
+    <div class="online" [ngStyle]="{'background-color':online===1? 'var(--ion-color-green)'
+    : 'var(--ion-color-white)' }" (click)="online=1 ;cash=0">
+      <div class="img_div">
+        <img [src]="online==1 ? ' assets/image/online-pay.png' : 'assets/image/credit-cards.png'" />
+        <h3 [ngClass]="online==1 ? 'tittle' : 'cash_heading' ">{{"pay_method.online_pay" | translate}}</h3>
+      </div>
+    </div>
+
+  </div>
+
+  <ng-container *ngIf="online==1">
+    <div class="card_div ion-margin-horizontal">
+      <div class="online" (click)="payment_type='RAZOR'" *ngIf="data?.razor"
+        [ngStyle]="{'background-color':payment_type==='RAZOR'? 'var(--ion-color-green)': 'var(--ion-color-white)' }">
+        <div class="img_div">
+          <img src="../../../assets/image/Razorpay_logo.svg" class="pay_img" />
+          <h3 [ngClass]="payment_type==='RAZOR' ? 'tittle' : 'cash_heading' ">{{"pay_method.razor_pay" | translate}}
+          </h3>
+        </div>
+      </div>
+      <div class="cash" (click)="payment_type='PAYPAL'" *ngIf="data?.paypal"
+        [ngStyle]="{'background-color':payment_type==='PAYPAL'? 'var(--ion-color-green)': 'var(--ion-color-white)' }">
+        <div class="img_div">
+          <img src="../../../assets/image/paypal_image.png" class="pay_img paypal_img" />
+          <h3 [ngClass]="payment_type==='PAYPAL' ? 'tittle' : 'cash_heading' ">{{"pay_method.PayPal" | translate}}</h3>
+        </div>
+      </div>
+      <div class="cash" (click)="payment_type='STRIPE'" *ngIf="data?.stripe"
+        [ngStyle]="{'background-color':payment_type==='STRIPE'? 'var(--ion-color-green)': 'var(--ion-color-white)' }">
+        <div class="img_div">
+          <img src="../../../assets/image/stripe.png" class="pay_img paypal_img" />
+          <h3 [ngClass]="payment_type==='STRIPE' ? 'tittle' : 'cash_heading' ">STRIPE</h3>
+        </div>
+      </div>
+
+    </div>
+
+
+    <form [formGroup]="stripeForm" [class.hide]="payment_type!='STRIPE'">
+      <p class="input-title">CARD NUMBER</p>
+      <ion-input mode="md" placeholder="xxxx  xxxx  xxxx  1289" type="tel" [(ngModel)]="cardData.number" name="num"
+        formControlName="number">
+      </ion-input>
+
+
+      <ion-row>
+        <ion-col size="6" class="ion-no-padding date-col">
+          <p class="input-title">EXPRIRATION YEAR</p>
+          <ion-input mode="md" placeholder="2022" type="tel" [(ngModel)]="cardData.expYear" name="exdate"
+            formControlName="exyear">
+          </ion-input>
+        </ion-col>
+
+        <ion-col size="5" class="ion-no-padding" offset="1">
+          <p class="input-title">EXPRIRATION MONTH</p>
+          <ion-input mode="md" placeholder="09" type="tel" [(ngModel)]="cardData.expMonth" required
+            formControlName="exmonth">
+          </ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="6" class="ion-no-padding date-col">
+          <p class="input-title">CARD HOLDER'S NAME</p>
+          <ion-input mode="md" placeholder="Randy Betancourt" [(ngModel)]="cardData.name" type="text" name="exdate"
+            formControlName="name">
+          </ion-input>
+        </ion-col>
+        <ion-col size="5" class="ion-no-padding" offset="1">
+          <p class="input-title">CVV</p>
+          <ion-input mode="md" placeholder="****" type="tel" [(ngModel)]="cardData.cvc" formControlName="cvv"
+            name="cvv">
+          </ion-input>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ng-container>
+  <div>
+
+  </div>
+
+</ion-content>
+
+<ion-footer>
+  <ion-button class="otp_btn" [disabled]="!stripeForm.valid" *ngIf="payment_type =='STRIPE'" (click)="paymentMethod()">
+    {{"pay_method.pay" | translate}} {{data?.currency_symbol}}{{apdata?.toPay}}
+  </ion-button>
+  <ion-button class="otp_btn" (click)="paymentMethod()" *ngIf="payment_type!='STRIPE'">
+    {{"pay_method.pay" | translate}} {{data?.currency_symbol}}{{apdata?.toPay}}
+  </ion-button>
+</ion-footer>

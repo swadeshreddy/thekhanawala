@@ -1,0 +1,30 @@
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="home">
+      <ion-icon src="/assets/icon/home.svg"></ion-icon>
+      <ion-label>Home</ion-label>
+      <!-- <ion-badge>6</ion-badge> -->
+    </ion-tab-button>
+
+    <ion-tab-button tab="order-history">
+      <ion-icon name="calendar"></ion-icon>
+      <ion-label>Orders</ion-label>
+    </ion-tab-button>
+
+    <!-- <ion-tab-button tab="cart">
+      <ion-icon name="calendar-outline"></ion-icon>
+      <ion-label>Cart</ion-label>
+    </ion-tab-button> -->
+
+    <ion-tab-button [routerLink]="['/cart']">
+      <ion-icon src="/assets/icon/bag.svg"></ion-icon>
+      <ion-label>Cart</ion-label>
+      <!-- <ion-badge>6</ion-badge> -->
+    </ion-tab-button>
+
+    <ion-tab-button tab="profile">
+      <ion-icon src="/assets/icon/user.svg"></ion-icon>
+      <ion-label>Profile</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>

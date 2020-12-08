@@ -1,0 +1,394 @@
+{
+  "app_name": "speedo.delivery",
+  "add_edit_address_page": {
+    "add_title": "Добавить адрес",
+    "edit_title": "Изменить адрес",
+    "address_type": "Выберите тип адреса",
+    "save_btn": "Сохранить"
+  },
+  "cancel_order_alert": {
+    "title": "Отменить заказ",
+    "text": "Вы действительно хотите отменить заказ?",
+    "yes": "Да",
+    "no": "Нет"
+  },
+  "add_card_page": {
+    "title": "Добавить карту",
+    "card_number": "Номер карты",
+    "expiration_date": "Срок действия карты",
+    "cvv": "CVV",
+    "card_holders_name": "CARD HOLDER'S NAME",
+    "add_card": "Добавить карту"
+  },
+  "cancel_order_page": {
+    "title": "Почему вы хотите отменить заказ?"
+  },
+  "cart_page": {
+    "title": "cart",
+    "apply_coupon": "Купоны",
+    "bill_details": "Детализация цен",
+    "item_total": "Итого",
+    "total_discount": "Скидка",
+    "restaurant_charges": "Сборы ресторана",
+    "delivery_fee": "Доставка",
+    "cancellation_fee": "Отмена заказа",
+    "to_pay": "Оплатить",
+    "saved_text": {
+      "txt1": "Принято",
+      "txt2": "К счету"
+    },
+    "select_address": "Выберите адрес",
+    "change_address_btn": "Изменить адрес",
+    "select_pay_method": "Способ оплаты"
+  },
+  "category_page": {
+    "title": "Все заведения",
+    "min": "мин",
+    "for_two": "на двоих"
+  },
+  "filter_page": {
+    "title": "Фильтры",
+    "apply_btn": "Применить фильтр",
+    "Top Rated": "Самые лучшие",
+    "Open Now": "Открыто сейчас",
+    "Nearest Me": "Рядом",
+    "Most Popular": "Самые  популярные",
+    "Cost High to Low": "С высокими ценами",
+    "Cost Low to High": "С низкими ценами"
+  },
+  "forgot_password_page": {
+    "title": "Забыл пароль",
+    "text": "Введите свою почту и мы отправим вам инструкцию по восстановлению пароля",
+    "send_btn": "Отправить",
+    "email_placeholder": "Почта"
+  },
+  "otp_page": {
+    "enter_otp_text": "Введите ",
+    "resend_btn": "Переотправить?",
+    "confirm_btn": "Потвердить"
+  },
+  "home_page": {
+    "restaurant": "Заведения",
+    "filter": "Фильтры",
+    "offer": "Предложения",
+    "min": "мин",
+    "for_two": "на двоих",
+    "popular_this_week": "Популярное на этой неделе",
+    "no_data": "Нет данных",
+    "pocket_friendly": "По карману",
+    "Most Popular": "Самые популярные",
+    "Great Offers": "Предложения по скидкам",
+    "Pure Veg Places": "С компанией",
+    "Pocket Friendly": "По карману",
+    "food": "Еда",
+    "grocery": "Магазин",
+    "store": "Магазины",
+    "categories": "Категории",
+    "view_more": "Посмотреть",
+    "Nearest Me": "Рядом со мной"
+  },
+  "invite_Friends_page": {
+    "title": "Пригласить друзей",
+    "text": "Отправляйте приглашения друзьям по реферальному коду и получайте бонусы",
+    "referral_code": "Реферальный код",
+    "invite_btn": "Пригласить друзей"
+  },
+  "item_review_page": {
+    "title": "Посмотреть"
+  },
+  "login_page": {
+    "title": "Вход в аккаунт",
+    "placeholder": {
+      "email": "Почта",
+      "password": "Пароль"
+    },
+    "remember_me": "Запомнить меня",
+    "forgot_password_btn": "забыли пароль?",
+    "sign_in_btn": "Войти",
+    "new_user_txt": "Вы здесь впервые?",
+    "sign_up_btn": "Зарегистрироваться"
+  },
+  "register_page": {
+    "title": "Регистрация пользователя",
+    "placeholder": {
+      "name": "Имя",
+      "email": "Почта",
+      "password": "Пароль",
+      "confirm_password": "Потвердить пароль",
+      "referral_code": "Реферальный код"
+    },
+    "sign_up_btn": "Зарегистрироваться",
+    "already_have_account_txt": "У вас уже есть свой аккаунт?",
+    "sign_in_btn": "Войти"
+  },
+  "notification_page": {
+    "title": "Уведомления"
+  },
+  "order_detail_page": {
+    "title": "Детали заказа",
+    "order_summary": "Описание заказа",
+    "restaurant_accepted": "Ресторан принял заказ",
+    "on_the_way": "Уже в пути",
+    "order_status": "Статус заказа",
+    "bill_detail": "Детали оплаты",
+    "item_total": "Итого заказ",
+    "promo_code": "Промокод",
+    "del_charge": "Доставка",
+    "rest_charge": "Сборы ресторана",
+    "total": "Итого",
+    "your_total_saving": "Вы сэкономили",
+    "rate_meal": "Оцените блюдо",
+    "rate_delivery_boy": "Оцените работу курьера",
+    "restaurant_review": "Поставьте оценку ресторану",
+    "submit": "Потвердить",
+    "Item Review": "Обзор заказа"
+  },
+  "order_history_page": {
+    "title": "История заказов",
+    "current_order": "Текущий заказ",
+    "restaurant_accepted": "Ресторан принял заказ",
+    "on_the_way": "Уже в пути",
+    "items": "Заказы",
+    "ordered_on": "Оплаченные",
+    "total_amount": "Итоговая стоимость",
+    "cancel_order": "Отменить заказ",
+    "past_order": "Предыдущий заказ",
+    "no_data": "Нет данных"
+  },
+  "pay_method_page": {
+    "title": "Способы оплаты",
+    "online_pay": "Онлайн",
+    "cash": "Наличные",
+    "razor_pay": "Razor Pay",
+    "pay_pal": "PayPal",
+    "continue_btn": "continue"
+  },
+  "profile_page": {
+    "edit": "Редактировать",
+    "segment": {
+      "reviews": "Обзоры",
+      "photos": "Фото",
+      "edit_profile": "Изменить данные",
+      "setting": "Настройки",
+      "change_password": "Изменить пароль"
+    },
+    "language": "Язык",
+    "english": "English",
+    "okay_text": "Ok",
+    "cancel_text": "Отменить",
+    "no_data": "Нет данных",
+    "placeholder": {
+      "name": "Имя",
+      "email": "Адрес",
+      "phone_number": "номер телефона",
+      "location": "Местоположение",
+      "new_password": "Новый пароль",
+      "confirm_password": "Потвердить пароль"
+    },
+    "notification": "Уведомления",
+    "location": "Местоположение",
+    "call": "Звонок",
+    "default_address": "Текущий адрес",
+    "change": "Изменить",
+    "save_btn": "Сохранить"
+  },
+  "promo_code_page": {
+    "title": "Промокод",
+    "apply_btn": "Применить"
+  },
+  "restaurant_detail_page": {
+    "review": "Обзор",
+    "open_now": "Открыто",
+    "mon_to_sun": "С ПН по ВС",
+    "rating": "Рейтинг",
+    "mins": "минут",
+    "delivery_time": "Время доставки",
+    "for_two": "На двоих",
+    "off": "OFF",
+    "veg_only": "Мясные",
+    "non_veg": "Легкие",
+    "best_sellers": "Тут выбирают",
+    "no_data": "Нет данных",
+    "exclusive": "Лучшее",
+    "add": "Добавить",
+    "special_combo": "Комбо",
+    "votes": "Оценки",
+    "menu": "Меню",
+    "view_cart": "В корзину",
+    "item": "Выбрано"
+  },
+  "review_page": {
+    "review": "Отзывы",
+    "open_now": "Открыто",
+    "mon_to_sun": "С ПН по ВС",
+    "rating": "рейтинг",
+    "mins": "минут",
+    "delivery_time": "Время Доставки",
+    "for_two": "На Двоих",
+    "off": "Закрыт",
+    "photos": "Фото",
+    "no_data": "Нет данных",
+    "was_helpful": "Помогло ли вам это?",
+    "no": "Нет",
+    "yes": "Да"
+  },
+  "select_address_page": {
+    "title": "Выбрать адрес",
+    "edit": "Изменить",
+    "delete": "Удалить",
+    "set_address": "Установить адрес"
+  },
+  "success_modal": {
+    "congratulations": "Классно",
+    "text": "Ваш заказ отправлен ресторану",
+    "thank_you": "Спасибо"
+  },
+  "timeline_page": {
+    "title": "Статус заказа",
+    "text": "Ваш заказ готов и ожидает курьера",
+    "order_no": "Order No:",
+    "del_text": {
+      "txt1": "Партнер Доставки",
+      "txt2": "Ваш заказ уже в пути и будет скоро доставлен"
+    },
+    "view_order": "Посмотреть заказ",
+    "status": {
+      "order_confirm": "Потверждение заказа от ресторана",
+      "food_prepared": "Ваш заказ готовят",
+      "rider_pickup_order": "Курьер забирает ваш заказ",
+      "food_on_the_way": "Ваше блюдо уже в пути",
+      "rider_near_your_place": "Курьер уже подъезжает",
+      "delivered": "Доставлено"
+    },
+    "cancel_order": "Отменить заказ"
+  },
+  "verify_page": {
+    "text": {
+      "txt1": "Мы отправили смс с кодом",
+      "txt2": "на ваш номер"
+    },
+    "confirm_btn": "Потвердить"
+  },
+  "slider": {
+    "slide1": {
+      "slide_name": {
+        "txt1": "Все заведения",
+        "txt2": "Рядом с вами"
+      },
+      "slide_info": "We make it simple to find food for you just enter your address and do the rest"
+    },
+    "slide2": {
+      "slide_name": {
+        "txt1": "Restaurant to your Home",
+        "txt2": "instant delivery"
+      },
+      "slide_info": "We provide door to door service in your time with best quality of food"
+    },
+    "slide3": {
+      "slide_name": {
+        "txt1": "Pickup your delivery",
+        "txt2": "with sweet smile"
+      },
+      "slide_info": "We make food ordering fast, simple and free -no matter if your order online or cash"
+    },
+    "skip": "Пропустить"
+  },
+  "side_menu": {
+    "Home": "Главная",
+    "Notification": "Уведомления",
+    "Promo Code": "Промокод",
+    "Invite Friends": "Пригласить друзей",
+    "Order History": "История заказов",
+    "Logout": "Выйти",
+    "Setting": "Настройки",
+    "Grocery Order": "Заказы с магазинов"
+  },
+  "toasts": {
+    "logged_in_success": "Вы успешно вошли",
+    "address_update": "Адрес обновлен",
+    "order_is_out_range": "Заказ вне радиуса вашей зоны",
+    "review_add_success": "Успешно добавлен отзыв",
+    "shop_review_add_success": "Отзыв о магазине успешно добавлен",
+    "driver_review_add_success": "Отзыв о курьере успешно добавлен",
+    "payment_not_possible": "Оплата невозможна",
+    "setting_set_success": "Настройки сохранены",
+    "profile_set_success": "Фото успешно сохранена",
+    "cart_empty": "Корзина пуста",
+    "select_default_address": "Выберите свой адрес"
+  },
+  "store_detail": {
+    "today": "Сегодня",
+    "store": "Магазины",
+    "product": "Товары",
+    "view_more": "Посмотреть",
+    "votes": "Оценки",
+    "category": "Категории",
+    "review": "Отзывы",
+    "add_in_cart": "Добавить в корзину",
+    "searchPlace": "Поиск блюд и товаров"
+  },
+  "grocery_cart": {
+    "cart": "Корзина",
+    "delivery": "Доставка",
+    "pickup": "Навынос",
+    "bill_details": "Детали оплаты",
+    "total_payable": "Итого стоимость",
+    "total_discount": "Скидка",
+    "delivery_fee": "Доставка",
+    "to_pay": "К оплате",
+    "you_have_saved": "Вы сэкономили",
+    "on_the_bill": "К счету",
+    "select_address": "Выбрать адрес",
+    "change_address": "Изменить адрес",
+    "select_payment_method": "Выберите способ оплаты",
+    "apply_coupon": "Применить купон"
+  },
+  "pay_method": {
+    "payment_method": "Способ оплаты",
+    "cash": "Наличные",
+    "online_pay": "ONLINE PAY",
+    "razor_pay": "Razor Pay",
+    "PayPal": "PayPal",
+    "pay": "pay"
+  },
+  "grocery_success": {
+    "CONGRATULATIONS": "Классно",
+    "msg": "Ваш заказ отправлен магазину",
+    "ty": "Спасибо"
+  },
+  "grocery_status": {
+    "order_status": "Статус заказа",
+    "view_order": "Посмотреть заказ",
+    "order_confirm": " Потвердить заказ",
+    "ready": "Магазин готовит ваш заказ",
+    "delivery": "Заказ уже в пути",
+    "place": "Заказ уже рядом с домом",
+    "delivered": "Доставлено"
+  },
+  "grocer_order_detail": {
+    "order_detail": "Детали заказа",
+    "order_summery": "Описание заказа",
+    "accepted": "Магазин принял",
+    "way": "Уже в пути",
+    "BILL_DETAILS": "Детали оплаты",
+    "total": "Итого выбрано",
+    "code": "Промокод",
+    "charge": "Доставка",
+    "Total": "Итого",
+    "saving": "Вы сэкономили",
+    "Delivered": "Доставлено",
+    "review": "Отзыв",
+    "Submit": "Потвердить"
+  },
+  "grocery_history": {
+    "order_history": "История заказов",
+    "current": "Текущий заказ",
+    "accepted": "Магазин принял",
+    "way": "Уже в пути",
+    "order_on": "Заказано",
+    "order_no": "Не было заказано",
+    "amount": "Итого",
+    "past": "Предыдущий заказ",
+    "no_data": "No Data"
+  }
+}
