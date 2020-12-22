@@ -20,9 +20,11 @@ ion-content {
         }
     }
     .img_div {
+        height: 250px;
+    overflow: hidden;
         img {
             width: -webkit-fill-available;
-            height: 250px;
+            min-height: 250px;
         }
         position: relative;
         .name_div {
