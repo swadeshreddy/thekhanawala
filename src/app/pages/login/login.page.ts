@@ -17,6 +17,7 @@ export class LoginPage implements OnInit {
   innerWidth=300
   public remember: boolean = false;
   public showPassword: boolean = false;
+  loading: boolean=false;
   constructor(
     private menu: MenuController,
     private ntrl: NavController,
@@ -43,6 +44,7 @@ export class LoginPage implements OnInit {
   gotoSlide() {
     this.user.device_token = this.api.deviceToken ? this.api.deviceToken : null;
     // this.util.startLoad();
+    this.loading=true;
     this.api.postData("login", this.user).subscribe(
       (res: any) => {
         if (res.success) {
@@ -60,9 +62,9 @@ export class LoginPage implements OnInit {
           localStorage.setItem("token", res.data.token);
           this.api.userToken = res.data.token;
           this.util.isUpdateProfile.next(true);
-          this.translate.get("toasts").subscribe(async (val) => {
-            this.util.presentToast(val.logged_in_success);
-          });
+          // this.translate.get("toasts").subscribe(async (val) => {
+          //   // this.util.presentToast(val.logged_in_success);
+          // });
           if (res.data.address_id) {
             localStorage.setItem("isaddress", res.data.address_id);
           } else {
@@ -74,6 +76,7 @@ export class LoginPage implements OnInit {
           this.ntrl.navigateForward("verify");
         }
         // this.util.dismissLoader();
+        this.loading=false;
       },
       (err) => {
         if (err.error.msg) {
@@ -81,6 +84,7 @@ export class LoginPage implements OnInit {
         }
         this.err = err.error.errors;
         // this.util.dismissLoader();
+        this.loading=false;
       }
     );
   }

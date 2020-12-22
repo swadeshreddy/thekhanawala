@@ -17,6 +17,7 @@ export class ProfilePage implements OnInit {
   userDetail: any = {};
   err: any = {};
   data: any = {};
+  edit:boolean=false;
   userSetting: any = {};
   imgProfile: any = "http://placehold.it/96x96";
   changeAddressBtn: any = false;
@@ -28,7 +29,12 @@ export class ProfilePage implements OnInit {
   userLocation: any;
   isfrom: any;
   passwordData: any = {};
+  profileOptions=[
+    {title:"My Account",list:[{"title":"My Address","route":'/select-address'},{"title":"Past Orders","route":'/order-history'},{"title":"Settings","route":'/my-address'},]},
+    {title:"More",list:[{"title":"Contact Us","route":'/my-address'},{"title":"About Us","route":'/my-address'}]}
+  ]
   public language: string = localStorage.getItem('app_language') ? localStorage.getItem('app_language') : 'en';
+  loading: boolean;
   constructor(
     private ntrl: NavController,
     private api: ApiService,
@@ -40,6 +46,7 @@ export class ProfilePage implements OnInit {
   ) {
     
     //   this.util.startLoad();
+    this.loading=true;
     this.api.getDataWithToken("viewReview").subscribe((res: any) => {
       if (res.success) {
         this.data = res.data;
@@ -47,6 +54,7 @@ export class ProfilePage implements OnInit {
         this.data.review.forEach((element) => {
           element.created_at = moment(element.created_at).fromNow();
         });
+        this.loading=false;
         this.userName = res.data.userDetail.name;
         this.userLocation = res.data.userDetail.location;
         this.userDetail = this.data.userDetail;
@@ -98,7 +106,12 @@ export class ProfilePage implements OnInit {
   option: any = {
     header: 'Language',
   }
-
+  logout() {
+    // menuController.close();
+    localStorage.removeItem("token");
+    localStorage.removeItem("isaddress");
+    this.ntrl.navigateRoot(["login"]);
+  }
   ionViewWillEnter() {
     if (this.changeAddressBtn) {
       this.api.getDataWithToken("getAddress/" + localStorage.getItem("isaddress"))
@@ -116,7 +129,11 @@ export class ProfilePage implements OnInit {
   ngOnInit() { }
 
   back() {
-    this.ntrl.back();
+    if(this.edit){
+      this.handleEditProfile();
+      return
+    }else{this.ntrl.back();}
+    
   }
 
   editProfile() {
@@ -129,6 +146,7 @@ export class ProfilePage implements OnInit {
            //    this.util.dismissLoader();
             this.translate.get('toasts').subscribe(async val => {
               this.util.presentToast(val.profile_set_success);
+              this.handleEditProfile()
             })
             this.util.isUpdateProfile.next(true);
             this.api.getDataWithToken("viewReview").subscribe((res: any) => {
@@ -398,5 +416,8 @@ export class ProfilePage implements OnInit {
     localStorage.setItem('app_language', this.language);
     document.documentElement.dir = this.language == 'ar' ? 'rtl' : 'ltr';
     this.translate.setDefaultLang(this.language);
+  }
+  handleEditProfile(){
+    this.edit=!this.edit;
   }
 }

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="app.thekhanawala.vendors" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="app.thekhanawala.com" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>The Khanawala</name>
     <description>The Khanawala</description>
     <author email="hi@ionicframework.com" href="http://ionicframework.com/">Speedo Delivery Team</author>

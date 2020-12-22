@@ -83,3 +83,118 @@ ion-content {
 .item .sc-ion-label-ios-h {
     white-space: normal !important;
 }
+.order-card {
+    padding: 10px;
+    margin: 10px;
+    background: #FFFFFF;
+    border: 1px solid #D1D5DB;
+    box-sizing: border-box;
+    border-radius: 8px;
+}
+.horizontal-div{
+    display: flex;
+    justify-content: space-between;
+}
+.shop-name{
+    font-family: sans-serif;
+font-style: normal;
+font-weight: 600;
+font-size: 14px;
+line-height: 22px;
+/* or 157% */
+
+display: flex;
+align-items: center;
+letter-spacing: -0.408px;
+
+color: #000000;
+}
+.order-no {
+    font-family: sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 22px;
+    display: flex;
+    align-items: center;
+    text-align: right;
+    letter-spacing: -0.408px;
+    color: #50555C;
+}
+.item-name, .amount {
+    font-family: sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 22px;
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.408px;
+}
+.buttons{
+    margin-top: 10px;
+}
+button.btn.reorder-btn {
+    background: #FFA737;
+    border: 1px solid #FFA737;
+    box-sizing: border-box;
+    border-radius: 4px;
+    width: 100%;
+    height: 30px;
+    // margin: 3px;
+    color: #fff;
+   
+}
+.cancel-btn{
+    background: #FFFFFF;
+    border: 1px solid #50555C;
+    box-sizing: border-box;
+    border-radius: 4px;
+    width: 100%;
+    height: 30px;
+    // margin: 3px;
+}
+.heading {
+    margin: 10px;
+    border-bottom: 1px solid lightgray;
+    padding: 10px;
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.order-div{
+    margin: 10px;
+}
+p.order {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    display: flex;
+    align-items: center;
+    font-family: sans-serif;
+    text-align: center;
+    color: #000000;
+}
+ion-skeleton-text.date {
+    width: 60%;
+    margin-left: 10px;
+}
+ion-skeleton-text.order-name {
+    width: 40%;
+}
+ion-skeleton-text.order-no {
+    width: 26%;
+}
+ion-skeleton-text.order-qnty {
+    width: 30%;
+}
+ion-skeleton-text.order-payment {
+    width: 20%;
+}
+ion-skeleton-text.order-button {
+    height: 30px;
+    border-radius: 7px;
+    padding: 0;
+    margin: 0;
+}

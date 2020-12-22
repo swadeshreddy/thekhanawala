@@ -12,6 +12,7 @@ import { TranslateService } from "@ngx-translate/core";
 export class SelectAddressPage implements OnInit {
   addressList: any;
   isAddadress = false;
+  loading: boolean;
   constructor(
     private modalController: ModalController,
     private api: ApiService,
@@ -108,20 +109,22 @@ export class SelectAddressPage implements OnInit {
         selectedAddress = element.id;
       }
     });
-
+    this.loading=true;
     if (selectedAddress) {
       localStorage.setItem("isaddress", selectedAddress);
       this.api.getDataWithToken("setAddress/" + selectedAddress).subscribe(
         (res: any) => {
           if (res.success) {
+            this.loading=false
             this.ntrl.back();
           }
         },
-        (err) => {}
+        (err) => { this.loading=false}
       );
     } else {
       this.translate.get("toasts").subscribe(async (val) => {
         this.util.presentToast(val.select_default_address);
+        this.loading=false
       });
     }
   }

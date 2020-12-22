@@ -60,18 +60,18 @@ export class PaymentMethodPage implements OnInit {
       cvv: new FormControl("", Validators.compose([Validators.required])),
     });
     this.currencyType = this.api.currencyType;
-    this.util.startLoad();
+    // // // this.util.startLoad();
     this.api.getDataWithToken("keySetting").subscribe((res: any) => {
       if (res.success) {
         this.apdata = res.data;
-     
+
         this.stripe.setPublishableKey(this.apdata.stripePublicKey);
-        this.util.dismissLoader();
+        // //this.util.dismissLoader();
       }
     });
   }
-local:any = [];
-  ngOnInit() {}
+  local: any = [];
+  ngOnInit() { }
   paymentMethod() {
     this.data.items = [];
     this.data.package_id = [];
@@ -138,19 +138,19 @@ local:any = [];
       this.data.payment_status = 0;
       this.data.payment_type = "LOCAL";
 
-      this.util.startLoad();
+      // this.util.startLoad();
       this.api.postDataWithToken("createOrder", this.data).subscribe(
         (res: any) => {
           if (res.success) {
             this.api.promocode = {};
-            this.util.dismissLoader();
+            //this.util.dismissLoader();
             this.api.checkOrderStatus = res.data.id;
             this.presentModal();
           }
         },
         (err) => {
           this.err = err.error.errors;
-          this.util.dismissLoader();
+          //this.util.dismissLoader();
         }
       );
     }
@@ -171,7 +171,7 @@ local:any = [];
     localStorage.removeItem('radius');
     localStorage.removeItem('shopId');
     return await modal.present();
-    
+
   }
   payWithRazor() {
     var options = {
@@ -201,19 +201,19 @@ local:any = [];
 
       this.data.payment_status = 1;
       this.data.payment_type = "RAZOR";
-      this.util.startLoad();
+      // // this.util.startLoad();
       this.api.postDataWithToken("createOrder", this.data).subscribe(
         (res: any) => {
           if (res.success) {
             this.api.promocode = {};
-            this.util.dismissLoader();
+            //this.util.dismissLoader();
             this.api.checkOrderStatus = res.data.id;
             this.presentModal();
           }
         },
         (err) => {
           this.err = err.error.errors;
-          this.util.dismissLoader();
+          //this.util.dismissLoader();
         }
       );
     };
@@ -252,21 +252,21 @@ local:any = [];
                     this.data.payment_token = result.response.id;
                     this.data.payment_status = 1;
                     this.data.payment_type = "PAYPAL";
-                    this.util.startLoad();
+                    // // this.util.startLoad();
                     this.api
                       .postDataWithToken("createOrder", this.data)
                       .subscribe(
                         (res: any) => {
                           if (res.success) {
                             this.api.promocode = {};
-                            this.util.dismissLoader();
+                            //this.util.dismissLoader();
                             this.api.checkOrderStatus = res.data.id;
                             this.presentModal();
                           }
                         },
                         (err) => {
                           this.err = err.error.errors;
-                          this.util.dismissLoader();
+                          //this.util.dismissLoader();
                         }
                       );
                   },
@@ -286,7 +286,7 @@ local:any = [];
       );
   }
   stripePayment() {
-    this.util.startLoad();
+    // // this.util.startLoad();
     this.stripe
       .createCardToken(this.cardData)
       .then((token) => {
@@ -296,7 +296,7 @@ local:any = [];
         this.api.postDataWithToken("createOrder", this.data).subscribe(
           (res: any) => {
             if (res.success) {
-              this.util.dismissLoader();
+              //this.util.dismissLoader();
               this.api.promocode = {};
               this.api.checkOrderStatus = res.data.id;
               this.presentModal();
@@ -304,7 +304,7 @@ local:any = [];
           },
           (err) => {
             this.err = err.error.errors;
-            this.util.dismissLoader();
+            //this.util.dismissLoader();
           }
         );
       })

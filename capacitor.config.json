@@ -1,6 +1,6 @@
 {
-  "appId": "io.ionic.starter",
-  "appName": "speedo.delivery",
+  "appId": "app.thekhanawala.com",
+  "appName": "The Khanawala",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",

@@ -37,8 +37,9 @@
             </ion-item>
         </ion-item-sliding>
 
-        <ion-button class=" otp_btn setaddress_btn" mode="md" expand="block" fill="solid" (click)="setDefaultAddress()">
+        <ion-button [disabled]="loading" class=" otp_btn setaddress_btn" mode="md" expand="block" fill="solid" (click)="setDefaultAddress()">
             {{'select_address_page.set_address' | translate}}
+            <ion-spinner  *ngIf="loading" name="dots"></ion-spinner>
         </ion-button>
     </ng-container>
 </ion-content>

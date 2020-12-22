@@ -12,6 +12,8 @@ import { TranslateService } from '@ngx-translate/core';
 export class OrderHistoryPage implements OnInit {
   data: any = {};
   currency: any;
+  loading=false;
+  orderitem: any;
   constructor(
     private ntrl: NavController,
     private api: ApiService,
@@ -24,9 +26,13 @@ export class OrderHistoryPage implements OnInit {
   ionViewWillEnter() {
     this.currency = this.api.currency;
     // this.util.startLoad();
+    this.loading=true
     this.api.getDataWithToken("userOrder").subscribe((res: any) => {
       if (res.success) {
+        
         this.data = res.data;
+        // this.orderitem = JSON.stringify(this.data.past_order[0])
+        this.loading=false
         // // this.util.dismissLoader();
       }
     });
@@ -46,7 +52,7 @@ export class OrderHistoryPage implements OnInit {
 
   async presentAlert(id) {
     this.translate.get("cancel_order_alert").subscribe(async val => {
-
+      
       const alert = await this.alertController.create({
         header: val.title,
         message: val.text,
@@ -57,6 +63,7 @@ export class OrderHistoryPage implements OnInit {
             cssClass: "secondary",
             handler: () => {
               // this.util.startLoad();
+              console.log(id)
               this.api.getDataWithToken("cancelOrder/" + id).subscribe(
                 (res: any) => {
                   if (res.success) {
@@ -72,6 +79,8 @@ export class OrderHistoryPage implements OnInit {
                         // this.util.dismissLoader();
                       }
                     );
+                  }else{
+                    this.util.presentToast(res.msg);
                   }
                 },
                 err => {

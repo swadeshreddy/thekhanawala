@@ -1,9 +1,9 @@
-<ion-header no-border>
+<ion-header no-border [ngStyle]="{height: searchactive == true ? '100%': 'auto'}">
     <ion-toolbar>
         <!-- <ion-buttons slot="end">
             <ion-menu-button></ion-menu-button>
         </ion-buttons> -->
-        <div class="locationContent">
+        <div *ngIf="!searchactive" class="locationContent">
             <ion-icon name="location-outline"></ion-icon>
             <div class="textContent" (click)="handleAddressView()">
                 <h2 class="location">
@@ -12,22 +12,67 @@
                 <p class="address">{{userAddress?.soc_name}} {{userAddress?.street}} {{userAddress?.city}}
                     {{userAddress?.zipcode}} <ion-icon *ngIf="addressList.length>0" name="ios-arrow-down"></ion-icon>
                 </p>
-
             </div>
         </div>
     </ion-toolbar>
     <!-- <ion-searchbar placeholder="Search for Restaurant and dishes" clearIcon="string" [(ngModel)]="term"></ion-searchbar> -->
-    <div class="search-wrapper">
-        <ion-icon src="../../../assets/icon/search.svg"></ion-icon>
-        <input type="text" placeholder="Search for Restaurant and dishes" />
+    <div [ngClass]="searchactive == true ? 'active-search' : ' ' " class="search-wrapper">
+        <div class="">
+            <ion-icon name="close" class="search-close"(click)='onClose()'></ion-icon>
+        </div>
+        <ion-icon class="search-icon" src="../../../assets/icon/search.svg"></ion-icon>
+        <input type="text" placeholder="Search for Restaurant and dishes" (focus)="onFocus()" [(ngModel)]="searchkey"
+            (keyup)="onSearchChange($event)" />
     </div>
     <!-- <ion-button *ngIf="sellProduct != 2" class="trans-btn mode_btn" [class.active]="isfood==true" (click)="isfood=true">
         {{"home_page.food" | translate}}</ion-button> -->
     <!-- <ion-button *ngIf="sellProduct != 1" class="trans-btn mode_btn" [class.active]="isfood==false" (click)="isfood=false">
         {{"home_page.grocery" | translate}}</ion-button> -->
+    <div [ngClass]="searchactive == true ? 'search-container-active' : ' ' " class="search-container">
+        
+      <ion-list *ngIf="!searchkey">
+            <ion-list-header *ngIf="searchedKeys.length>0">
+                <h5>Recent Searches</h5>
+                <p>clear all</p>
+            </ion-list-header>
+            <ion-item class="recent-search-item" *ngFor="let item of searchedKeys;let i=index" >
+                <ion-icon class="search-icon-recent" src="../../../assets/icon/search.svg"></ion-icon>
+                <ion-label (click)="searchedKeyClicked(item)">{{item}}</ion-label>
+                <ion-icon name="close" (click)="clearSearchItem(i)"></ion-icon>
+                <!-- <ion-icon name="close"  ></ion-icon> -->
+            </ion-item>
+            <!-- <ion-item class="recent-search-item" lines="none">
+                <ion-icon class="se arch-icon-recent" src="../../../assets/icon/search.svg"></ion-icon>
+                <ion-label>fruits</ion-label>
+            </ion-item> -->
+        </ion-list>
+        <ion-list *ngIf="!searchkey">
+            <ion-list-header>
+                <h5>Tastes Near You</h5>
+            </ion-list-header>
+            <div class="slider_div" [style.max-width.px]="innerWidth">
+                <div class="menu_div category" *ngFor="let item of data?.category |filter:term"
+                    (click)="categoryData(item?.id)">
+                    <img [src]="item.imagePath + item?.image" />
+                    <p class="type">{{item?.name}}</p>
+                </div>
+            </div>
+
+        </ion-list>
+        <!-- <p class="no_data_p" *ngIf="data?.item?.length==0">{{"home_page.no_data" | translate}}</p> -->
+        <ion-list  *ngIf="searchkey" class="search-item-div">
+            <ion-item class="searched-item" *ngFor="let item of data?.item |filter:searchkey" (click)="resturantDetail(item.shop_id)">
+                <img [src]="item.imagePath + item.image" />
+               <div>
+                <p class="img_type">{{item?.name | slice:0:18}} <span *ngIf="item.name.length >18 ">...</span></p>
+                <ion-card-subtitle>{{item?.categoryName}}</ion-card-subtitle>
+               </div>
+            </ion-item>
+        </ion-list>
+    </div>
 </ion-header>
 
-<ion-content class="food_content" >
+<ion-content class="food_content">
     <div class="address-view" *ngIf="isAddressListVisible">
 
         <div no-data *ngIf="addressList?.length == 0">
@@ -141,18 +186,19 @@
             </div>
         </ng-container> -->
 
-        
+
         <p class="heading">{{"home_page.categories" | translate}}</p>
         <p *ngIf="data?.shop?.length==0" class="no_data_p">{{"home_page.no_data" | translate}}</p>
         <div class="slider_div">
-            <div class="menu_div category" *ngFor="let item of data?.category |filter:term" (click)="categoryData(item?.id)">
+            <div class="menu_div category" *ngFor="let item of data?.category |filter:term"
+                (click)="categoryData(item?.id)">
                 <img [src]="item.imagePath + item?.image" />
                 <p class="type">{{item?.name}}</p>
             </div>
         </div>
         <div class="slider_div" *ngIf="loading">
             <div class="menu_div category" *ngFor="let item of [1,2,3,4,5,6,7,8,9,0]">
-                <ion-skeleton-text class="img" animated ></ion-skeleton-text>
+                <ion-skeleton-text class="img" animated></ion-skeleton-text>
                 <ion-skeleton-text class="type" style="height:10px" animated></ion-skeleton-text>
             </div>
         </div>
@@ -185,7 +231,7 @@
                     </div>
                 </div>
             </div> -->
-        <!-- </ng-container> --> 
+        <!-- </ng-container> -->
         <p class="heading">{{"home_page.popular_this_week" | translate}}</p>
         <p *ngIf="data?.shop?.length==0" class="no_data_p">{{"home_page.no_data" | translate}}</p>
         <ng-container *ngFor="let item of data?.shop |filter:term ; let i=index">
@@ -215,6 +261,21 @@
                 </div>
             </div>
         </ng-container>
+        <div class="shop-skelton" *ngIf="loading">
+            <ion-row *ngFor="let item of [1,2,3]">
+                <ion-col size="3">
+                    <!-- <div class="exclusive_div" >
+                    <ion-skeleton-text  class="tittle" *ngIf="loading"  animated ></ion-skeleton-text> 
+                </div> -->
+                    <ion-skeleton-text class="img" *ngIf="loading" animated></ion-skeleton-text>
+
+                </ion-col>
+                <ion-col size="9">
+                    <ion-skeleton-text class="ptitle" *ngIf="loading" animated></ion-skeleton-text>
+                    <ion-skeleton-text class="pprice" *ngIf="loading" animated></ion-skeleton-text>
+                </ion-col>
+            </ion-row>
+        </div>
         <!-- <p class="heading">{{"home_page.pocket_friendly" | translate}}</p>
         <p class="no_data_p" *ngIf="data?.item?.length==0">{{"home_page.no_data" | translate}}</p>
         <div class="slider_div">

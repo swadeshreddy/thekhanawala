@@ -30,12 +30,12 @@ export class OrderDetailPage implements OnInit {
     private translate: TranslateService
   ) {
     this.currency = this.api.currency;
-    this.util.startLoad();
+   // this.util.startLoad();
 
     this.api.getDataWithToken("singleOrder/" + this.api.orderID).subscribe(
       (res: any) => {
         if (res.success) {
-          this.util.dismissLoader();
+          //this.util.dismissLoader();
           this.data = res.data;
 
           this.itemtotal = 0;
@@ -57,7 +57,7 @@ export class OrderDetailPage implements OnInit {
         }
       },
       err => {
-        this.util.dismissLoader();
+        //this.util.dismissLoader();
         this.err = err;
       }
     );

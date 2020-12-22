@@ -27,10 +27,12 @@ export class HomePage {
   userAddress: any = {};
   err: any = {};
   currentTime: any;
-  loading=false;
-  shoploading=false
+  loading = false;
+  shoploading = false
   isfood = true;
+  searchkey:any=""
   sellProduct = 0;
+  searchactive = false;
   public staticData: any = {
     feature: [
       {
@@ -81,7 +83,7 @@ export class HomePage {
   btnType = "Exclusive";
   currency: any;
   Address: any;
-  isAddressListVisible=false;
+  isAddressListVisible = false;
   trending = [
     {
       name: "Real Fruit Juice ,Litchi, (Pack of 2)",
@@ -105,49 +107,51 @@ export class HomePage {
 
   public innerWidth: any = window.innerWidth;
   public banners: any = Array();
-  addressList: any=[
-  //   {
-  //   address_type: "Office",
-  //   city: "HYDERABAD",
-  //   created_at: "2020-12-01 15:31:52",
-  //   deleted_at: "0000-00-00 00:00:00",
-  //   id: 19,
-  //   lang: "78.39099831768772",
-  //   lat: "17.451662256210017",
-  //   soc_name: "124",
-  //   street: "ayyappa society",
-  //   updated_at: "2020-12-01 15:31:52",
-  //   user_id: 43,
-  //   zipcode: "500033"
-  // }
-  // },{
-  //   address_type: "Home"
-  //   city: "HYDERABAD"
-  //   created_at: "2020-12-01 15:27:12"
-  //   deleted_at: "0000-00-00 00:00:00"
-  //   id: 18
-  //   lang: "78.3772265"
-  //   lat: "17.4839871"
-  //   soc_name: "123"
-  //   street: "ayyappa society"
-  //   updated_at: "2020-12-01 15:27:12"
-  //   user_id: 43
-  //   zipcode: "500033"
-  // },{
-  //   address_type: "Home"
-  //   city: "HYDERABAD"
-  //   created_at: "2020-12-01 14:46:23"
-  //   deleted_at: "0000-00-00 00:00:00"
-  //   id: 17
-  //   lang: "78.3772189"
-  //   lat: "17.4839855"
-  //   soc_name: "wuodbdgj"
-  //   street: "dgkdkd"
-  //   updated_at: "2020-12-01 14:46:23"
-  //   user_id: 43
-  //   zipcode: "500072"
-  //   __proto__: Object
-]
+  addressList: any = [
+    //   {
+    //   address_type: "Office",
+    //   city: "HYDERABAD",
+    //   created_at: "2020-12-01 15:31:52",
+    //   deleted_at: "0000-00-00 00:00:00",
+    //   id: 19,
+    //   lang: "78.39099831768772",
+    //   lat: "17.451662256210017",
+    //   soc_name: "124",
+    //   street: "ayyappa society",
+    //   updated_at: "2020-12-01 15:31:52",
+    //   user_id: 43,
+    //   zipcode: "500033"
+    // }
+    // },{
+    //   address_type: "Home"
+    //   city: "HYDERABAD"
+    //   created_at: "2020-12-01 15:27:12"
+    //   deleted_at: "0000-00-00 00:00:00"
+    //   id: 18
+    //   lang: "78.3772265"
+    //   lat: "17.4839871"
+    //   soc_name: "123"
+    //   street: "ayyappa society"
+    //   updated_at: "2020-12-01 15:27:12"
+    //   user_id: 43
+    //   zipcode: "500033"
+    // },{
+    //   address_type: "Home"
+    //   city: "HYDERABAD"
+    //   created_at: "2020-12-01 14:46:23"
+    //   deleted_at: "0000-00-00 00:00:00"
+    //   id: 17
+    //   lang: "78.3772189"
+    //   lat: "17.4839855"
+    //   soc_name: "wuodbdgj"
+    //   street: "dgkdkd"
+    //   updated_at: "2020-12-01 14:46:23"
+    //   user_id: 43
+    //   zipcode: "500072"
+    //   __proto__: Object
+  ]
+  searchedKeys: any;
+  items: any;
   constructor(
     private menu: MenuController,
     private modalController: ModalController,
@@ -160,6 +164,7 @@ export class HomePage {
     private platform: Platform,
     private androidPermissions: AndroidPermissions
   ) {
+    this.loading = true;
     this.api.getData("keySetting").subscribe(
       (res: any) => {
         this.sellProduct = res.data.sell_product;
@@ -172,18 +177,21 @@ export class HomePage {
         console.log("err", err);
       }
     );
+   this.searchedKeys = this.api.getSearchedKey()
   }
 
   private initData() {
     this.getAdvertisingBanner();
     this.getAddressList()
     // this.util.startLoad();
-    this.loading=true;
+
     this.api.getDataWithToken("home").subscribe(
       (res: any) => {
         if (res.success) {
-          this.loading=false;
+          this.loading = false;
           this.data = res.data;
+          // alert()
+          this.items=JSON.stringify(this.data.item)
           this.currency = this.api.currency;
 
           // this.getGrocery();
@@ -197,11 +205,11 @@ export class HomePage {
   }
 
   getAdvertisingBanner(): void {
-    this.loading=true;
+    this.loading = true;
     this.api.getData("banner").subscribe((res: any) => {
       if (res.success) {
         this.banners = res.data;
-        this.loading=false
+        this.loading = false
       }
     });
   }
@@ -226,67 +234,67 @@ export class HomePage {
         );
     } else {
       if (this.platform.is("cordova")) {
-       this.setCurrentLocation()
+        this.setCurrentLocation()
       } else {
         // this.getData();
       }
     }
   }
-  setCurrentLocation(){
+  setCurrentLocation() {
     this.androidPermissions
-    .checkPermission(
-      this.androidPermissions.PERMISSION.ACCESS_FINE_LOCATION
-    )
-    .then((result) => {
-      if (result.hasPermission) {
-        // this.util.startLoad();
-        this.geolocation
-          .getCurrentPosition({
-            enableHighAccuracy: true,
-            timeout: 5000,
-          })
-          .then((resp) => {
-            console.log("resp", resp);
+      .checkPermission(
+        this.androidPermissions.PERMISSION.ACCESS_FINE_LOCATION
+      )
+      .then((result) => {
+        if (result.hasPermission) {
+          // this.util.startLoad();
+          this.geolocation
+            .getCurrentPosition({
+              enableHighAccuracy: true,
+              timeout: 5000,
+            })
+            .then((resp) => {
+              console.log("resp", resp);
 
-            resp.coords.latitude;
-            resp.coords.longitude;
-            this.userAddress.lat = resp.coords.latitude;
-            this.userAddress.lang = resp.coords.longitude;
-            this.gpi.current.lat = resp.coords.latitude;
-            this.gpi.current.lang = resp.coords.longitude;
-            const options: NativeGeocoderOptions = {
-              useLocale: true,
-              maxResults: 5,
-            };
-            this.nativeGeocoder
-              .reverseGeocode(
-                resp.coords.latitude,
-                resp.coords.longitude,
-                options
-              )
-              .then((result: NativeGeocoderResult[]) => {
-                //this.util.dismissLoader();
-                this.userAddress.address_type = "Delivary to";
-                this.userAddress.soc_name = result[0].subLocality;
-                this.userAddress.street = result[0].thoroughfare;
-                this.userAddress.city = result[0].locality;
-                this.userAddress.zipcode = result[0].postalCode;
-              })
-              .catch((error: any) => console.log(error));
-          })
-          .catch((error) => {
-            this.util.dismissLoader();
-          });
-      } else {
-        this.androidPermissions.requestPermission(
-          this.androidPermissions.PERMISSION.ACCESS_FINE_LOCATION
-        );
-      }
-    });
+              resp.coords.latitude;
+              resp.coords.longitude;
+              this.userAddress.lat = resp.coords.latitude;
+              this.userAddress.lang = resp.coords.longitude;
+              this.gpi.current.lat = resp.coords.latitude;
+              this.gpi.current.lang = resp.coords.longitude;
+              const options: NativeGeocoderOptions = {
+                useLocale: true,
+                maxResults: 5,
+              };
+              this.nativeGeocoder
+                .reverseGeocode(
+                  resp.coords.latitude,
+                  resp.coords.longitude,
+                  options
+                )
+                .then((result: NativeGeocoderResult[]) => {
+                  //this.util.dismissLoader();
+                  this.userAddress.address_type = "Delivary to";
+                  this.userAddress.soc_name = result[0].subLocality;
+                  this.userAddress.street = result[0].thoroughfare;
+                  this.userAddress.city = result[0].locality;
+                  this.userAddress.zipcode = result[0].postalCode;
+                })
+                .catch((error: any) => console.log(error));
+            })
+            .catch((error) => {
+              this.util.dismissLoader();
+            });
+        } else {
+          this.androidPermissions.requestPermission(
+            this.androidPermissions.PERMISSION.ACCESS_FINE_LOCATION
+          );
+        }
+      });
     this.getAddressList()
     this.handleAddressView()
   }
-  getAddressList(){
+  getAddressList() {
     this.api.getDataWithToken("userAddress").subscribe((res: any) => {
       if (res.success) {
         this.addressList = res.data;
@@ -302,8 +310,8 @@ export class HomePage {
     });
   }
   setAddress(address) {
-   this.userAddress=address;
-   this.handleAddressView()
+    this.userAddress = address;
+    this.handleAddressView()
   }
   async presentModal() {
     const modal = await this.modalController.create({
@@ -450,6 +458,8 @@ export class HomePage {
 
   resturantDetail(id) {
     this.api.detailId = id;
+    this.onClose()
+    this.addSearchKey()
     this.navCtrl.navigateForward(["restaurant-detail"]);
   }
 
@@ -491,7 +501,9 @@ export class HomePage {
   }
 
   categoryData(id) {
-    console.log('this.id',id)
+    console.log('this.id', id)
+    this.onClose();
+    this.addSearchKey()
     this.navCtrl.navigateForward("/category/" + id);
   }
   getGrocery() {
@@ -547,10 +559,41 @@ export class HomePage {
   getCategory() {
     this.navCtrl.navigateForward("/grocery-category");
   }
-  handleAddressView(){
-    if(this.addressList.length>0){
-    this.isAddressListVisible = !this.isAddressListVisible;
+  handleAddressView() {
+    if (this.addressList.length > 0) {
+      this.isAddressListVisible = !this.isAddressListVisible;
+    }
   }
+  searchedKeyClicked(key){
+    this.searchkey=key
   }
+  onClose() {
+    this.searchactive = false;
+      }
+  onFocus() {
+    this.searchactive = true
+  }
+  onSearchChange(event) {
+
+  }
+addSearchKey(){
+  if(this.searchkey.length>1){
+    if(this.searchedKeys.length>6){
+      this.searchedKeys.splice(this.searchedKeys.length-1,1)
+    }
+    this.searchedKeys.push(this.searchkey)
+    this.api.storeSearchedKey(this.searchedKeys.reverse());
+    this.searchkey=""
+  }
+  console.log(this.searchkey)
+
+}
+  clearSearchItem(i){
+    this.searchedKeys.splice(i,1)
+    this.api.storeSearchedKey(this.searchedKeys)
+  }
+    //  event.preventdefault()
+    // alert(event.target.value)
+   
 
 }

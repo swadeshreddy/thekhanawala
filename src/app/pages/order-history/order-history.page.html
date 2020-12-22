@@ -3,7 +3,9 @@
         <!-- <ion-buttons slot="start">
             <ion-back-button defaultHref="home" icon="ios-arrow-back" text=""></ion-back-button>
         </ion-buttons> -->
-        <ion-title class="ion-text-uppercase">{{"order_history_page.title" | translate}}</ion-title>
+       <div class="heading">
+        <ion-label class="ion-text-uppercase">{{"order_history_page.title" | translate}}</ion-label>
+       </div>
         <!-- <ion-buttons slot="end">
             <ion-menu-button> </ion-menu-button>
         </ion-buttons> -->
@@ -11,11 +13,10 @@
 </ion-header>
 
 <ion-content>
-    <div no-data *ngIf="data?.current_order?.length ==0 && data?.past_order?.length==0">
+    <!-- <div no-data *ngIf="data?.current_order?.length ==0 && data?.past_order?.length==0">
         <img src="../../../assets/image/no-data-icon-10.jpg" alt="no data">
     </div>
     <div class="ion-margin-horizontal">
-
         <p class="main_heading" *ngIf="data?.current_order?.length > 0">{{"order_history_page.current_order" | translate}}</p>
         <div class="card_div" *ngFor="let item of data?.current_order">
             <ion-item lines="none" (click)="orderDetail(item.id)">
@@ -79,6 +80,51 @@
                 <h3 class="menu">{{"order_history_page.total_amount" | translate}}</h3>
                 <p class="order">{{currency}}{{item?.payment}}</p>
             </ion-label>
+        </div>
+    </div> -->
+    <div class="order-container">
+        <div class="order-div" *ngFor="let item of data?.past_order" >
+            <!-- <p>{{orderitem}}</p> -->
+            <p class="order">{{item?.date |date:' d MMM y'}} {{item?.time}}</p>
+            <div class="order-card">
+            <div class="horizontal-div" (click)="orderDetail(item.id)">
+                <div class="shop-name">{{item?.shop?.name}}</div><div class="order-no">{{item?.order_no}}</div>
+            </div>
+            <div class="horizontal-div" (click)="orderDetail(item.id)">
+                <div class="item-name">{{item?.orderItems[0]?.quantity}} x {{item?.orderItems[0]?.itemName}} {{item?.orderItems[0]?.packageName}}</div><div class="amount">{{currency}}{{item?.payment}}</div>
+            </div>
+            <ion-row class="buttons">
+                <ion-col>
+                    <button class="btn reorder-btn">reorder</button>
+                </ion-col>
+             <ion-col>
+                <button *ngIf=" item?.order_status=='Cancel'" (click)="presentAlert(item.id)" class="btn cancel-btn">Cancel order</button>
+             </ion-col>
+            </ion-row>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="loading" class="order-container">
+        <p class="order"><ion-skeleton-text class="date" animated ></ion-skeleton-text>  </p>
+        <div class="order-div" *ngFor="let item of [1,2,3,4,5]" >
+            <div class="order-card">
+            <div class="horizontal-div" >
+                <ion-skeleton-text class="order-name" animated ></ion-skeleton-text>  
+                <ion-skeleton-text class="order-no" animated ></ion-skeleton-text>  
+            </div>
+            <div class="horizontal-div" (click)="orderDetail(item.id)">
+                <ion-skeleton-text class="order-qnty" animated ></ion-skeleton-text>  
+                <ion-skeleton-text class="order-payment" animated ></ion-skeleton-text> 
+            </div>
+            <ion-row class="buttons">
+                <ion-col>
+                    <ion-skeleton-text class="order-button" animated ></ion-skeleton-text>  
+                </ion-col>
+             <ion-col>
+                <ion-skeleton-text class="order-button" animated ></ion-skeleton-text> 
+             </ion-col>
+            </ion-row>
+            </div>
         </div>
     </div>
 </ion-content>

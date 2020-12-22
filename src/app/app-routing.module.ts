@@ -26,6 +26,10 @@ const routes: Routes = [
     canActivate: [AuthGuardService],
   },
   {
+    path: 'profile',
+    loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfilePageModule)
+  },
+  {
     path: "payment-method",
     loadChildren:
       "./pages/payment-method/payment-method.module#PaymentMethodPageModule",
@@ -207,7 +211,7 @@ const routes: Routes = [
   },
   { path: 'restuarent-list', loadChildren: './pages/restuarent-list/restuarent-list.module#RestuarentListPageModule' },
   { path: 'tabs', loadChildren: './tabs/tabs.module#TabsPageModule' },
-  /*   { path: 'otpmodalpage', loadChildren: './pages/otpmodalpage/otpmodalpage.module#OtpmodalpagePageModule' }, */
+    /*   { path: 'otpmodalpage', loadChildren: './pages/otpmodalpage/otpmodalpage.module#OtpmodalpagePageModule' }, */
 ];
 
 @NgModule({

@@ -28,6 +28,7 @@ export class RestaurantDetailPage implements OnInit {
   currency: any;
   shopId: any;
   defaultimage="../../../assets/default.png"
+  loading: boolean=false
   constructor(
     private popoverController: PopoverController,
     private ntrl: NavController,
@@ -38,6 +39,9 @@ export class RestaurantDetailPage implements OnInit {
   ) {
     this.currency = this.api.currency;
     // this.util.startLoad();
+    this.loading=true
+    this.cartData = JSON.parse(localStorage.getItem("cart-detail")) || [];
+    console.log(this.cartData)
     localStorage.setItem('shopId', this.api.detailId)
     this.api
       .getDataWithToken("shopDetail/" + this.api.detailId)
@@ -45,14 +49,25 @@ export class RestaurantDetailPage implements OnInit {
         if (res.success) {
           this.data = res.data;
           console.log(this.data)
-
+          this.loading=false
           this.data.bestSeller.forEach((element) => {
-            element.qty = 0;
             element.type = "item";
+            const fCart = this.cartData.find((x) => x.id == element.id && x.type == element.type);
+            if (fCart) {
+              element.qty = fCart.qty;
+            } else {
+              element.qty = 0;
+            }
+           
           });
           this.data.combo.forEach((ele) => {
-            ele.qty = 0;
             ele.type = "combo";
+            const fCart = this.cartData.find((x) => x.id == ele.id && x.type == ele.type);
+            if (fCart) {
+              ele.qty = fCart.qty;
+            } else {
+              ele.qty = 0;
+            }
           });
 
           this.tempData = res.data.bestSeller;
@@ -61,72 +76,73 @@ export class RestaurantDetailPage implements OnInit {
         }
       });
     /* this.cartData = JSON.parse(localStorage.getItem("cart-detail")) || []; */
-
+    this.getCartdata();
   }
 
   ionViewWillEnter() {
     // this.util.startLoad();
-    setTimeout(() => {
+    // setTimeout(() => {
 
-      this.cartData = JSON.parse(localStorage.getItem("cart-detail")) || [];
-      this.cartData.forEach(element => {
-        if (element.shop_id != this.api.detailId) {
-          this.shopId = element.shop_id
-        }
-      });
-      if (this.cartData.length > 0) {
-
-        if (this.data.bestSeller.length > 0) {
-          this.data.bestSeller.forEach((el1) => {
-            const fCart = this.cartData.find((x) => x.id == el1.id && x.type == el1.type);
-            if (fCart) {
-              el1.qty = fCart.qty;
-            } else {
-              el1.qty = 0;
-            }
-          });
-        }
-        if (this.data.combo.length > 0) {
-          this.data.combo.forEach((el1) => {
-            const fCart = this.cartData.find((x) => x.id == el1.id && x.type == el1.type);
-            if (fCart) {
-              el1.qty = fCart.qty;
-            } else {
-              el1.qty = 0;
-            }
-          });
-        }
-      } else {
-        this.data.bestSeller.forEach((el1) => {
-          el1.qty = 0;
-        });
-      }
-      this.getCartdata();
-      // this.util.dismissLoader();
-    }, 2000);
-    if (this.api.cartData.cartDetail) {
-      if (this.api.cartData.cartDetail.length >= 0) {
-        if (this.data.bestSeller) {
-          this.data.bestSeller.forEach((el1) => {
-            let status = true;
-            this.api.cartData.cartDetail.forEach((el2) => {
-              if (el1.id == el2.id && el1.type == el2.type) {
-                el1.qty = el2.qty;
-              } else {
-                status = false;
-              }
-            });
-          });
-        }
-      } else {
-        this.data.bestSeller.forEach((el1) => {
-          el1.qty = 0;
-        });
-        this.data.combo.forEach((element) => {
-          element.qty = 0;
-        });
-      }
-    }
+    //   this.cartData = JSON.parse(localStorage.getItem("cart-detail")) || [];
+    //   console.log(this.cartData)
+    //   this.cartData.forEach(element => {
+    //     if (element.shop_id != this.api.detailId) {
+    //       this.shopId = element.shop_id
+    //     }
+    //   });
+    //   if (this.cartData.length > 0) {
+    //     console.log(this.data.bestSeller)
+    //     if (this.data.bestSeller.length > 0) {
+    //       this.data.bestSeller.forEach((el1) => {
+    //         const fCart = this.cartData.find((x) => x.id == el1.id && x.type == el1.type);
+    //         if (fCart) {
+    //           el1.qty = fCart.qty;
+    //         } else {
+    //           el1.qty = 0;
+    //         }
+    //       });
+    //     }
+    //     if (this.data.combo.length > 0) {
+    //       this.data.combo.forEach((el1) => {
+    //         const fCart = this.cartData.find((x) => x.id == el1.id && x.type == el1.type);
+    //         if (fCart) {
+    //           el1.qty = fCart.qty;
+    //         } else {
+    //           el1.qty = 0;
+    //         }
+    //       });
+    //     }
+    //   } else {
+    //     this.data.bestSeller.forEach((el1) => {
+    //       el1.qty = 0;
+    //     });
+    //   }
+    //   this.getCartdata();
+    //   // this.util.dismissLoader();
+    // }, 2000);
+    // if (this.api.cartData.cartDetail) {
+    //   if (this.api.cartData.cartDetail.length >= 0) {
+    //     if (this.data.bestSeller) {
+    //       this.data.bestSeller.forEach((el1) => {
+    //         let status = true;
+    //         this.api.cartData.cartDetail.forEach((el2) => {
+    //           if (el1.id == el2.id && el1.type == el2.type) {
+    //             el1.qty = el2.qty;
+    //           } else {
+    //             status = false;
+    //           }
+    //         });
+    //       });
+    //     }
+    //   } else {
+    //     this.data.bestSeller.forEach((el1) => {
+    //       el1.qty = 0;
+    //     });
+    //     this.data.combo.forEach((element) => {
+    //       element.qty = 0;
+    //     });
+    //   }
+    // }
   }
 
   ngOnInit() { }

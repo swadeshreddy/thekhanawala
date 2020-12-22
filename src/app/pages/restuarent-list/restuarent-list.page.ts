@@ -10,16 +10,18 @@ import { ApiService } from 'src/app/service/api.service';
 export class RestuarentListPage implements OnInit {
 
   constructor(private api: ApiService, private navCtrl: NavController ) { }
- defaultimage="../../../assets/default.png"
+ defaultimage="../../../assets/default.png";
+ loading=false;
 data:any={}
   ngOnInit() {
     this.getRestuarents()
   }
 getRestuarents(){
+  this.loading=true
   this.api.getDataWithToken("home").subscribe(
     (res: any) => {
       if (res.success) {
-        // this.shoploading=false;
+        this.loading=false;
         console.log(res.data)
         this.data = res.data;
         // this.currency = this.api.currency;

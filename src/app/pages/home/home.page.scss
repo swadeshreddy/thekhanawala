@@ -1,3 +1,4 @@
+
 ion-header {
   padding: 10px 5px 3px 14px;
   ion-toolbar {
@@ -630,7 +631,7 @@ ion-content {
 }
 .address-view{
   position: fixed;
-    top: 70px;
+    top: 60px;
     z-index: 1000;
     height: 100%;
     width: 100%;
@@ -646,10 +647,12 @@ ion-content {
   // padding-left: 10px;
 }
 .search-wrapper{
-  padding: 0px 10px 20px 0px;
+  padding: 0px 10px 0px 0px;
   position: relative;
+  display: inline-flex;
+  width: 100%;
 }
-.search-wrapper ion-icon{
+.search-wrapper ion-icon.search-icon{
   position: absolute;
     padding: 13px 10px;
 }
@@ -665,6 +668,7 @@ ion-content {
 }
 .category{
   text-align: center;
+  min-width: 90px;
 }
 .category img, .category .img{
   border-radius: 50% !important;
@@ -683,4 +687,102 @@ ion-content {
   /* text-align: center; */
   letter-spacing: -0.408px;
   color: #000000;
+}
+.slider_div {
+  display: -webkit-inline-box;
+  // max-width: 340px;
+  overflow: auto;
+}
+ion-col img{
+  width: 100%;
+}
+ion-skeleton-text.img {
+  width: 70px;
+  height: 66px;
+  border-radius: 10px;
+}
+ion-skeleton-text.tittle {
+  width: 50px;
+}
+ion-skeleton-text.address {
+  width: 150px;
+}
+ion-skeleton-text.ptitle {
+  width: 80%;
+}
+ion-skeleton-text.pprice {
+  width: 40px;
+}
+.shop-skelton{
+  padding: 0px 10px;
+}
+.top-div
+{
+  padding: 10px;
+}
+.active-search{
+  transform: translate(0,-30px);
+  transition: 0.2s ease all;
+  z-index: 1000;
+}
+.active-search input{
+  height: 50px;
+}
+.active-search div ion-icon{
+  display: block;
+}
+.active-search ion-icon{
+  display: none;
+}
+ion-icon[name="close"].search-close {
+  display: none;
+    padding: 10px;
+    font-size: 25px;
+}
+.search-container{
+  transform: translate(0px, -20px);
+  padding: 0px 10px;
+  display: none;
+}
+.search-container ion-list{
+  padding: 0;
+}
+.recent-search-item{
+  padding: 10px 10px;
+}
+.search-icon-recent{
+font-size: 13px;
+color: gray;
+margin: 9px;
+margin-top: 11px;
+}
+.ion-col-tastes img{
+  width: 70px;
+  border-radius: 50%;
+  height: 70px;
+}
+.search-container-active{
+  display: block;
+}
+.search-container ion-list ion-list-header h5{
+  font-size: 18px;
+  font-weight: 600;
+  font-family: 'Poppins-Medium';
+  
+}
+.search-container ion-list ion-list-header p{
+  color: #FFA737;
+}
+.searched-item{
+  padding: 10px 0px;
+    margin: 0px 0px;
+    margin-left: -20px;
+}
+.searched-item  img{
+  width: 100px;
+  padding: 10px;
+  border-radius: 13px;
+}
+p.img_type{
+margin: 0;
 }

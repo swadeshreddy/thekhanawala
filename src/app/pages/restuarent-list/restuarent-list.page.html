@@ -2,7 +2,7 @@
   <ion-toolbar class="ion-no-border" noborder>
     <!-- <ion-title>restuarent-list</ion-title> -->
     <ion-buttons >
-      <ion-back-button defaultHref="home" icon="ios-arrow-back" text=""></ion-back-button>
+      <ion-back-button></ion-back-button>
   </ion-buttons>
   
   <ion-buttons slot="end">
@@ -12,16 +12,33 @@
 </ion-header>
 
 <ion-content>
-<ion-row>
+<ion-row *ngIf="!loading">
   <ion-card *ngFor="let item of data?.shop" (click)="resturantDetail(item?.id)">
     <img [src]="item?.imagePath + item?.image || defaultimage" />
     <ion-card-header>
-      <ion-card-subtitle>{{item?.name}}</ion-card-subtitle>
+      <ion-card-subtitle>{{item?.name}}</ion-card-subtitle> 
+      <div class="rating">
+        <h3 class="rate">
+            <ion-icon name="star"></ion-icon>{{item?.rate}}
+        </h3>
+    </div>
       <!-- <ion-card-title>Madison, WI</ion-card-title> -->
     </ion-card-header>
     <ion-card-content>
       Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the Wisconsin Territory in 1836.
     </ion-card-content>
   </ion-card>
+</ion-row>
+  <ion-row *ngIf="loading">
+    <ion-card *ngFor="let item of [1,2,3,4]">
+      <ion-skeleton-text class="img" animated ></ion-skeleton-text>
+      <ion-card-header>
+        <ion-card-subtitle><ion-skeleton-text animated ></ion-skeleton-text></ion-card-subtitle>
+         <!-- <ion-card-title>Madison, WI</ion-card-title> -->
+      </ion-card-header>
+      <ion-card-content>
+        <ion-skeleton-text animated ></ion-skeleton-text>
+      </ion-card-content>
+    </ion-card>
 </ion-row>
 </ion-content>

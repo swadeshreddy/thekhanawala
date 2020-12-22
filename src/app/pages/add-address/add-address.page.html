@@ -28,12 +28,17 @@
             </ion-row>
         </div>
 
-        <agm-map [latitude]="agmMap.lat" [longitude]="agmMap.lng" [zoom]='17'>
+       <div class="maps">
+        <agm-map [latitude]="agmMap.lat" [longitude]="agmMap.lng" [zoom]='17' [disableDefaultUI]="true">
 
-            <agm-marker [markerDraggable]="true" (dragEnd)="centerChange($event)" [latitude]="agmMap.lat" [longitude]="agmMap.lng">
+            <agm-marker [markerDraggable]="true" (dragEnd)="centerChange($event)"  [latitude]="agmMap.lat" [longitude]="agmMap.lng">
 
             </agm-marker>
         </agm-map>
+       <div class="locate-icon">
+        <ion-icon src="../../../assets/icon/locate-icon.svg"></ion-icon>
+       </div>
+       </div>
         <form #f="ngForm">
             <div class="input-section">
                 <ion-input input-text name="building" [(ngModel)]="addressData.soc_name" placeholder="Building/Society Name" type="text" required>

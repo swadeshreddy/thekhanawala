@@ -50,16 +50,16 @@ export class PromocodePage implements OnInit {
   }
   applyPromocode(item) {
     this.promocode.code = item.code;
-    this.util.startLoad();
+    // this.util.startLoad();
     this.api
       .postDataWithToken("chkCoupon", this.promocode)
       .subscribe((res: any) => {
         if (res.success) {
-          this.util.dismissLoader();
+          // this.util.dismissLoader();
           this.api.promocode = item;
           this.ntrl.back();
         } else {
-          this.util.dismissLoader();
+          // this.util.dismissLoader();
           this.util.presentToast(res.msg);
         }
       });

@@ -76,6 +76,7 @@ export class AppComponent {
 
     this.api.getData("keySetting").subscribe((res: any) => {
       const script = document.createElement("script");
+      // alert(res.data.map_key)
       script.src =
         "https://maps.googleapis.com/maps/api/js?key=" + res.data.map_key;
       document.head.appendChild(script);

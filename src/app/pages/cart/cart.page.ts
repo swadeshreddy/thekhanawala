@@ -36,7 +36,6 @@ export class CartPage implements OnInit {
   delivery_charge: number = 0;
   imagePrevuew: any;
   canelCharge: number;
-  footerHidden: boolean;
   constructor(
     private ntrl: NavController,
     private api: ApiService,
@@ -57,9 +56,7 @@ export class CartPage implements OnInit {
     this.items = localStorage.getItem('cart-detail') ? JSON.parse(localStorage.getItem('cart-detail')) : [];
     this.items.forEach(element => {
       this.itemTotal += element.total;
-
       this.imagePrevuew = element.imagePath + element.image
-
     });
 
     this.toPay =
@@ -81,20 +78,19 @@ export class CartPage implements OnInit {
   ionViewWillEnter() {
     if (this.api.promocode.id) {
       this.countDiscount();
-      // window.onscroll=function(e){
-      //   console.log(e)
-      // }
     }
-    if (this.chaneAddress) {
-      //   this.util.startLoad();
+     this.util.startLoad();
       this.api
         .getDataWithToken("getAddress/" + localStorage.getItem("isaddress"))
         .subscribe((res: any) => {
           if (res.success) {
+            this.util.dismissLoader()
             this.data.Deafult_address = res.data;
+            this.userlat = res.data.lat;
+            this.userlang = res.data.lang;
+            this.initMap()
           }
         });
-    }
   }
 
   initMap() {
@@ -282,8 +278,9 @@ export class CartPage implements OnInit {
           disableDefaultUI: true,
           mapTypeId: google.maps.MapTypeId.ROADMAP,
         };
+        var mapElement = document.getElementById('map')
         this.map = new google.maps.Map(
-          this.mapElement.nativeElement,
+          mapElement,
           mapoption
         );
         this.map.mapTypes.set("styled_map", styledMapType);
@@ -338,13 +335,9 @@ export class CartPage implements OnInit {
   }
 
   ngOnInit() {
-    if (this.avtiveSegment == "About") setTimeout(() => this.initMap(), 1000);
-    
+    if (this.avtiveSegment == "About") setTimeout(() => this.initMap(), 2000);
   }
-  onScroll(event) {
-    // used a couple of "guards" to prevent unnecessary assignments if scrolling in a direction and the var is set already:
-console.log(event)
-  };
+
   payment_method() {
     this.local = JSON.parse(localStorage.getItem('cart-detail')) ? JSON.parse(localStorage.getItem('cart-detail')) : [];
     if (this.local.length) {
@@ -426,6 +419,19 @@ console.log(event)
       localStorage.setItem('cart-detail', JSON.stringify(this.local));
     }else{
       console.log(this.local)
+      this.local.forEach((element, index) => {
+        if (element.id === item.id && element.type == item.type) {
+          this.local.splice(index, 1);
+        }
+      });
+      this.itemTotal -= item.price;
+      this.toPay =
+        this.itemTotal +
+        this.rastaurant_charge +
+        this.delivery_charge -
+        this.data.discount;
+      localStorage.setItem('cart-detail', JSON.stringify(this.local));
+      this.data.cartData = JSON.parse(localStorage.getItem('cart-detail'));
       // this.local=[]
       // localStorage.setItem('cart-detail', JSON.stringify(this.local));
       // this.data.cartData.filter((cartitem)=>{ if(cartitem.name == item.name){return cartitem}})
@@ -435,6 +441,8 @@ console.log(event)
       this.countDiscount();
     }
   }
+
+
 
   getCartdata() { }
 

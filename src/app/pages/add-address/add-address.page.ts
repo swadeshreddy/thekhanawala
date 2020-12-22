@@ -48,6 +48,9 @@ export class AddAddressPage implements OnInit {
       (res: any) => {
         this.agmMap.lat = res.coords.latitude;
         this.agmMap.lng = res.coords.longitude;
+        this.TCenterlat = res.coords.latitude;
+        this.TCenterlng = res.coords.longitude
+        this.getFormattedAddress()
       },
       () => {}
     );
@@ -156,8 +159,80 @@ export class AddAddressPage implements OnInit {
       );
     }
   }
+  getFormattedAddress()
+  {
+    if(this.TCenterlat != NaN){
+     this.getGeoLocation(this.TCenterlat,this.TCenterlng).then((data:any)=>{
+      this.addressData.city= data['city'];
+      this.addressData.zipcode=data['zipcode'];
+      this.addressData.street=data['street']
+   
+      }).catch((err)=>{console.log(err)})
+    }
+  }
   centerChange($event) {
     this.TCenterlat = $event.coords.lat;
     this.TCenterlng = $event.coords.lng;
+    this.getFormattedAddress()
   }
+  getGeoLocation(lat: number, lng: number) {
+    var address:any={}
+    return new Promise((resolve, reject) => {
+    if (navigator.geolocation) {
+        let geocoder = new google.maps.Geocoder();
+        let latlng = new google.maps.LatLng(lat, lng);
+        console.log(latlng.lat())
+        let request = {
+            latLng: latlng
+        };
+        // console.log(request)
+        geocoder.geocode(request, function(results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            if (results[0]) {
+              for (var i = 0; i < results[0].address_components.length; i++) {
+                  var types = results[0].address_components[i].types;
+                  for (var typeIdx = 0; typeIdx < types.length; typeIdx++) {
+                      if (types[typeIdx] == 'postal_code') {
+                          //console.log(results[0].address_components[i].long_name);
+                          // console.log(results[0].address_components[i].short_name);
+                          address.zipcode =  results[0].address_components[i].short_name
+                      }
+                      if (types[typeIdx] == "locality") {
+                        //console.log(results[0].address_components[i].long_name);
+                        // console.log(results[0].address_components[i].short_name);
+                        address.city =  results[0].address_components[i].short_name
+                    }
+                    if (types[typeIdx] == "sublocality") {
+                      //console.log(results[0].address_components[i].long_name);
+                      if(address.street == undefined){
+                        address.street = results[0].address_components[i].short_name;
+                      }else{
+                        address.street = address.street.concat(" ",results[0].address_components[i].short_name);
+                      }
+                     
+                      // console.log(results[0].address_components[i].short_name);
+                  }
+                  
+                  }
+              }
+              address.address = results[0].formatted_address
+              resolve(address)
+          } else {
+              console.log("No results found");
+          }
+            if (results[1]) {
+             //formatted address
+            //  alert(results[0].formatted_address)
+            //find country name
+              // resolve(results[0].formatted_address)
+            } else {
+              console.log("No results found");
+            }
+          } else {
+            console.log("Geocoder failed due to: " + status);
+          }
+        });
+    }
+  })
+}
 }

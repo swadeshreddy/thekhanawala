@@ -24,7 +24,7 @@
     "title": "Why do you cancel your order?"
   },
   "cart_page": {
-    "title": "cart",
+    "title": "On Your Cart",
     "apply_coupon": "APPLY COUPON",
     "bill_details": "Bill Details",
     "item_total": "Item Total",
@@ -39,7 +39,7 @@
     },
     "select_address": "Select Address",
     "change_address_btn": "Change Address",
-    "select_pay_method": "Select Payment Method"
+    "select_pay_method": "Proceed to Pay"
   },
   "category_page": {
     "title": "Restaurant List",

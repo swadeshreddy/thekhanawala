@@ -1,25 +1,21 @@
-<ion-header class="ion-padding" no-border>
-    <ion-toolbar mode="md">
-        <ion-buttons >
-            <ion-back-button defaultHref="home" icon="ios-arrow-back" text=""></ion-back-button>
-        </ion-buttons>
-        
-        <!-- <ion-buttons slot="end">
-            <ion-menu-button></ion-menu-button>
-        </ion-buttons> -->
-    </ion-toolbar>
-    <ion-list-header class=" ion-text-uppercase">{{"cart_page.title" | translate}}</ion-list-header>
-</ion-header>
 
-<ion-content>
-    <div onscroll="onScroll($event)">
-    <ion-item class="item_div" lines="none">
-        <img [src]="imagePrevuew" />
-        <ion-label>
-            <h3 class="name">{{data?.name}}</h3>
-            <p class="adress">{{data?.address}}</p>
-        </ion-label>
-    </ion-item>
+<ion-header no-border>
+    <ion-toolbar mode="md">
+      <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+       <div class="heading">
+        <ion-label class="ion-text-uppercase">{{"cart_page.title" | translate}}</ion-label>
+       </div>
+        
+    </ion-toolbar>
+</ion-header>
+<ion-content >
+    <div no-data *ngIf="data?.cartData.length == 0">
+        <img src="../../../assets/image/no-data-icon-10.jpg" alt="no data">
+    </div>
+    <div *ngIf="data.cartData.length>0" >
+  
     <ion-item lines="none" class="combo_item" *ngFor="let item of data?.cartData">
         <h3 class="combo">
             <span class="item_span">{{item?.name}}</span>
@@ -93,7 +89,7 @@
     </div>
 </div>
 </ion-content>
-<ion-footer>
+<ion-footer *ngIf="data.cartData.length>0">
   <ion-row>
       <ion-col size="6">
         <button class="pay-info" >

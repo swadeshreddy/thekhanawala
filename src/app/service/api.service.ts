@@ -52,4 +52,15 @@ export class ApiService {
     header = header.set("Accept", "application/json");
     return this.http.post(this.baseUrl + url, data, { headers: header });
   }
+  storeSearchedKey(searchedItems){
+    localStorage.setItem('searchkey',JSON.stringify(searchedItems))
+  }
+  getSearchedKey(){
+    var searchkey:any = localStorage.getItem('searchkey');
+    if(searchkey == null){
+      searchkey=[]
+      return searchkey
+    }
+    return JSON.parse(searchkey)
+  }
 }
